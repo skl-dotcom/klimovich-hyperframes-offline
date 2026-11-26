@@ -1,2 +1,7 @@
-# klimovich-hyperframes-offline
-HyperFrames Offline Build Kit
+# KLIMOVICH HyperFrames Offline Kit V1.0 — builder
+
+This repository contains a GitHub Actions workflow and a build script, NOT an installed HyperFrames runtime. The workflow builds the official npm package hyperframes@0.9.98 and GSAP@3.14.2 for Linux x86_64 with Node 22.16.0. It includes the complete installed production dependency tree, package-lock.json, package manifest, local GSAP script and direct CLI launcher. It does not include Windows binaries, Chromium, FFmpeg, external fonts, media, or all Registry items. Those system and media resources are independent requirements. A successful offline CLI version/help test is not proof of a successful video render.
+
+Run only after confirming Actions is enabled, a standard GitHub-hosted runner is covered by an available free allowance (or is free for the selected repo), and paid usage is blocked. No API keys are required. The workflow is manual-only, with an eight-minute job timeout, a 200 MiB archive cap and one-day artifact retention. These guards limit consumption, not billing. A workflow_dispatch workflow needs to exist on the repository's default branch to be started manually.
+
+On GitHub select Actions → HyperFrames Offline Kit V1 → Run workflow. Upon success, obtain the named artifact ZIP. Extract the tar.gz and verify it using its SHA-256 file, then use the included run-hyperframes launcher. Transfer and render testing in the target environment must be performed separately. Preserve package-lock.json for future rebuilds; first-time dependency resolution is not a byte-for-byte reproducible build.
