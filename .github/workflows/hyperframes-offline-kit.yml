@@ -1,0 +1,27 @@
+name: HyperFrames Offline Kit V1
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hyperframes-offline-kit-v1
+  cancel-in-progress: true
+jobs:
+  build-linux-x64:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Assemble and verify CLI offline
+        run: bash scripts/build-hyperframes-offline.sh "$RUNNER_TEMP/offline-kit"
+      - name: Upload verified kit
+        uses: actions/upload-artifact@v4
+        with:
+          name: klimovich-hyperframes-offline-v1-linux-x64
+          path: ${{ runner.temp }}/offline-kit/*
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
